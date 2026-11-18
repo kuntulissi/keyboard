@@ -43,7 +43,7 @@ h1{font-size:17px;margin:4px 2px 8px;text-align:center}
 <script>
 (function(){
 var IPA={A:"a",B:"b",DH:"ɖ",E:"e",F:"f",H:"h",I:"i",J:"dʒ",K:"k",L:"l",M:"m",N:"n",NG:"ɲ",O:"o",QH:"ŋ",R:"r~ɾ",S:"s",T:"t",TH:"ʈ",U:"u",W:"w",Y:"j"};
-var ROWS=[["QH","W","E","R","T","TH","Y","U","I","O"],["A","S","DH","F","H","J","K","L"],["#shift","B","N","NG","M","#back"],[",",".","#space","?","!","#enter"]];
+var ROWS=[["QH","W","E","R","T","TH","Y","U","I","O"],["A","S","DH","F","H","J","K","L","’"],["#shift","B","N","NG","M","#back"],[",",".","#space","?","!","#enter"]];
 var out=document.getElementById("out"),kb=document.getElementById("kb"),state=1,last=0,keys=[],sk=null;
 function ins(t){var s=out.selectionStart,e=out.selectionEnd,v=out.value;out.value=v.slice(0,s)+t+v.slice(e);out.selectionStart=out.selectionEnd=s+t.length;}
 function back(){var s=out.selectionStart,e=out.selectionEnd,v=out.value;if(s!==e){out.value=v.slice(0,s)+v.slice(e);out.selectionStart=out.selectionEnd=s;}else if(s>0){out.value=v.slice(0,s-1)+v.slice(s);out.selectionStart=out.selectionEnd=s-1;}}
@@ -57,6 +57,7 @@ if(c==="#shift"){sk=mk(row,"⇧","f x",function(){var t=Date.now();if(t-last<350
 else if(c==="#back"){mk(row,"⌫","f x",function(){back();autoCap();});}
 else if(c==="#space"){mk(row,"space","f sp",function(){ins(" ");autoCap();});}
 else if(c==="#enter"){mk(row,"↵","f",function(){ins("\n");autoCap();});}
+else if(c==="’"){mk(row,"’","",function(){ins("’");});}
 else if(IPA[c]){var el=mk(row,c,"",function(){ins(state?c:c.toLowerCase());if(state===1)state=0;render();},IPA[c]);keys.push({el:el,u:c});}
 else{mk(row,c,"f",function(){ins(c);autoCap();});}
 });});
